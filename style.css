@@ -1,0 +1,692 @@
+/* =========================================================
+   WITCH HANGMAN - STYLE.CSS
+   Updated responsive version
+
+   Screen sizes included:
+   - Default / Large Desktop: 1401px and above
+   - Laptop: 1400px and below
+   - Small Desktop / Tablet Landscape: 1200px and below
+   - Tablet Portrait: 900px and below
+   - Large Mobile: 700px and below
+   - Small Mobile: 480px and below
+
+   Notes:
+   - Edit tree size in .hangman-scene for each screen size.
+   - Edit witch size/position in .witch-hanger for each screen size.
+   - Swing animation uses rotate, not transform, so transform: scale() still works.
+========================================================= */
+
+/* =========================================================
+   RESET
+========================================================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* =========================================================
+   PAGE BACKGROUND
+========================================================= */
+body {
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #2b124c, #522b5b);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 24px;
+}
+
+.game-container {
+  width: min(96vw, 1700px);
+  margin: auto;
+  text-align: center;
+}
+
+h1 {
+  font-size: 60px;
+  margin-bottom: 35px;
+}
+
+/* =========================================================
+   MAIN GAME CARD
+========================================================= */
+.game-card {
+  background: rgba(255, 255, 255, 0.12);
+  border: 2px solid rgba(255, 255, 255, 0.18);
+  border-radius: 28px;
+  padding: 45px;
+  display: flex;
+  gap: 70px;
+  align-items: center;
+  justify-content: center;
+  min-height: 760px;
+  backdrop-filter: blur(10px);
+}
+
+.image-area {
+  flex: 1.3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* =========================================================
+   🌳 EDIT TREE DESKTOP SIZE HERE
+   This is the tree/scene size for large desktop.
+========================================================= */
+.hangman-scene {
+  position: relative;
+  width: 650px;
+  height: 700px;
+}
+
+/* =========================================================
+   🌳 TREE IMAGE
+   Usually edit .hangman-scene, not this.
+========================================================= */
+.tree {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  left: 0;
+  top: 0;
+  z-index: 1;
+}
+
+/* =========================================================
+   🧙 EDIT WHOLE WITCH DESKTOP POSITION/SIZE HERE
+   left/top = move whole witch + rope
+   transform: scale() = make witch larger/smaller
+========================================================= */
+.witch-hanger {
+  position: absolute;
+  left: 145px;
+  top: 55px;
+  width: 340px;
+  height: 520px;
+  z-index: 3;
+  transform-origin: top center;
+  animation: swingHanger 2.7s ease-in-out infinite;
+}
+
+/* =========================================================
+   🪢 EDIT ROPE DESKTOP HERE
+========================================================= */
+.rope {
+  position: absolute;
+  width: 58px;
+  left: 106px;
+  top: 0;
+  z-index: 2;
+}
+
+/* =========================================================
+   🧍 EDIT WHOLE BODY GROUP DESKTOP HERE
+   This moves all body parts together, but not the rope.
+========================================================= */
+.witch-body {
+  position: absolute;
+  left: 0;
+  top: 155px;
+  width: 270px;
+  height: 285px;
+  z-index: 4;
+}
+
+.body-part {
+  position: absolute;
+  max-width: none;
+  pointer-events: none;
+}
+
+/* =========================================================
+   🧙 EDIT BODY PART POSITIONS HERE
+   These are desktop body-part positions.
+========================================================= */
+.head {
+  width: 148px;
+  left: 61px;
+  top: 0;
+  z-index: 6;
+}
+
+.body {
+  width: 132px;
+  left: 69px;
+  top: 113px;
+  z-index: 4;
+}
+
+.left-arm {
+  width: 81px;
+  left: 57px;
+  top: 123px;
+  z-index: 5;
+}
+
+.right-arm {
+  width: 81px;
+  left: 121px;
+  top: 124px;
+  z-index: 5;
+}
+
+.left-leg {
+  width: 64px;
+  left: 83px;
+  top: 219px;
+  z-index: 3;
+}
+
+.right-leg {
+  width: 64px;
+  left: 126px;
+  top: 219px;
+  z-index: 3;
+}
+
+/* =========================================================
+   🎐 SWING ANIMATION
+   IMPORTANT: use rotate, not transform: rotate.
+   This lets mobile/tablet transform: scale() still work.
+========================================================= */
+@keyframes swingHanger {
+  0% {
+    rotate: 2.5deg;
+  }
+
+  50% {
+    rotate: -2.5deg;
+  }
+
+  100% {
+    rotate: 2.5deg;
+  }
+}
+
+/* =========================================================
+   💥 BODY PART FALL ANIMATION
+========================================================= */
+.fall-away {
+  animation: fallAway 0.8s ease forwards;
+}
+
+@keyframes fallAway {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(100px, 180px) rotate(220deg);
+  }
+}
+
+/* =========================================================
+   GAME UI RIGHT SIDE
+========================================================= */
+.game-area {
+  flex: 0.9;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hint {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 35px;
+}
+
+.word-display {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin: 34px 0;
+  flex-wrap: wrap;
+}
+
+.letter-box {
+  width: 48px;
+  height: 58px;
+  border-bottom: 5px solid #fff;
+  font-size: 38px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.space-box {
+  width: 24px;
+  height: 58px;
+}
+
+.wrong-text {
+  margin-bottom: 30px;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.message {
+  min-height: 32px;
+  margin-bottom: 22px;
+  font-weight: bold;
+  font-size: 26px;
+}
+
+.message.win {
+  color: #7cff9b;
+}
+
+.message.lose {
+  color: #ff8a8a;
+}
+
+.keyboard {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.key-btn {
+  padding: 16px 18px;
+  border: none;
+  border-radius: 14px;
+  background: #ffffff;
+  color: #2b124c;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s ease;
+  text-transform: uppercase;
+}
+
+.key-btn:hover {
+  background: #ffd6ff;
+  transform: translateY(-2px);
+}
+
+.key-btn:disabled {
+  background: #8d8d8d;
+  color: #ddd;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.key-btn.correct {
+  background: #7cff9b;
+  color: #1c3d24;
+}
+
+.key-btn.wrong {
+  background: #ff8a8a;
+  color: #4a1111;
+}
+
+.reset-btn {
+  align-self: center;
+  border: none;
+  border-radius: 16px;
+  padding: 16px 36px;
+  background: #ffb703;
+  color: #2b124c;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.reset-btn:hover {
+  background: #ffd166;
+}
+
+/* =========================================================
+   💻 LAPTOP SETTINGS
+   Screens 1400px and below
+========================================================= */
+@media (max-width: 1400px) {
+  .game-container {
+    width: min(96vw, 1400px);
+  }
+
+  h1 {
+    font-size: 52px;
+    margin-bottom: 28px;
+  }
+
+  .game-card {
+    gap: 50px;
+    padding: 38px;
+    min-height: 680px;
+  }
+
+  /* 🌳 edit laptop tree size */
+  .hangman-scene {
+    width: 560px;
+    height: 610px;
+  }
+
+  /* 🧙 edit laptop witch size/position */
+  .witch-hanger {
+    left: 122px;
+    top: 48px;
+    transform: scale(1.1);
+    transform-origin: top center;
+  }
+}
+
+/* =========================================================
+   💻 TABLET LANDSCAPE / SMALL DESKTOP SETTINGS
+   Screens 1200px and below
+========================================================= */
+@media (max-width: 1200px) {
+  h1 {
+    font-size: 46px;
+  }
+
+  .game-card {
+    gap: 40px;
+    min-height: 620px;
+  }
+
+  /* 🌳 edit 1200px tree size */
+  .hangman-scene {
+    width: 480px;
+    height: 520px;
+  }
+
+  /* 🧙 edit 1200px witch size/position */
+  .witch-hanger {
+    left: 90px;
+    top: 40px;
+    transform: scale(1.0);
+    transform-origin: top center;
+  }
+
+  .hint {
+    font-size: 20px;
+  }
+
+  .key-btn {
+    padding: 13px 15px;
+    font-size: 16px;
+  }
+}
+
+/* =========================================================
+   📱 TABLET PORTRAIT SETTINGS
+   Screens 900px and below
+========================================================= */
+@media (max-width: 900px) {
+  body {
+    padding: 16px;
+  }
+
+  .game-container {
+    width: 100%;
+  }
+
+  h1 {
+    font-size: 34px;
+    margin-bottom: 18px;
+  }
+
+  .game-card {
+    flex-direction: column;
+    padding: 18px;
+    gap: 18px;
+    min-height: auto;
+    border-radius: 22px;
+  }
+
+  .image-area {
+    width: 100%;
+    flex: unset;
+  }
+
+  /* 🌳 edit 900px tree size */
+  .hangman-scene {
+    width: 340px;
+    height: 310px;
+    overflow: hidden;
+  }
+
+  /* 🧙 edit 900px witch size/position */
+  .witch-hanger {
+    left: 10px;
+    top: 25px;
+    transform: scale(0.70);
+    transform-origin: top center;
+  }
+
+  .game-area {
+    width: 100%;
+  }
+
+  .hint {
+    font-size: 17px;
+    margin-bottom: 14px;
+  }
+
+  .word-display {
+    gap: 9px;
+    margin: 18px 0;
+  }
+
+  .letter-box {
+    width: 32px;
+    height: 38px;
+    font-size: 25px;
+    border-bottom: 4px solid #fff;
+  }
+
+  .wrong-text {
+    font-size: 16px;
+    margin-bottom: 18px;
+  }
+
+  .message {
+    font-size: 18px;
+    margin-bottom: 14px;
+  }
+
+  .keyboard {
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+
+  .key-btn {
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 12px;
+  }
+
+  .reset-btn {
+    font-size: 16px;
+    padding: 12px 24px;
+  }
+}
+
+/* =========================================================
+   📱 LARGE MOBILE SETTINGS
+   Screens 700px and below
+========================================================= */
+@media (max-width: 700px) {
+  body {
+    padding: 12px;
+  }
+
+  h1 {
+    font-size: 30px;
+    margin-bottom: 14px;
+  }
+
+  .game-card {
+    padding: 16px;
+    gap: 14px;
+  }
+
+  /* 🌳 edit 700px tree size */
+  .hangman-scene {
+    width: 280px;
+    height: 245px;
+    overflow: hidden;
+  }
+
+  /* 🧙 edit 700px witch size/position */
+  .witch-hanger {
+    left: .50px;
+    top: 2px;
+    transform: scale(0.55);
+    transform-origin: top center;
+  }
+
+  .keyboard {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px;
+  }
+
+  .key-btn {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .hint {
+    font-size: 16px;
+  }
+}
+
+/* =========================================================
+   📱 SMALL MOBILE SETTINGS
+   Screens 480px and below
+========================================================= */
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 28px;
+    margin-bottom: 12px;
+  }
+
+  .game-card {
+    padding: 14px;
+    gap: 12px;
+  }
+
+  /* 🌳 edit 480px tree size */
+  .hangman-scene {
+    width: 220px;
+    height: 210px;
+    overflow: hidden;
+  }
+
+  /* 🧙 edit 480px witch size/position */
+  .witch-hanger {
+    left: -49px;
+    top: 4px;
+    transform: scale(0.50);
+    transform-origin: top center;
+  }
+
+  .hint {
+    font-size: 15px;
+  }
+
+  .keyboard {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 7px;
+  }
+
+  .key-btn {
+    padding: 9px;
+    font-size: 13px;
+  }
+
+  .letter-box {
+    width: 26px;
+    height: 34px;
+    font-size: 22px;
+  }
+  .space-box {
+  width: 14px;
+  height: 34px;
+}
+
+}
+
+/* ===========================
+   GAME INFO
+=========================== */
+
+.game-info{
+    margin:18px 0;
+    padding:14px 18px;
+    background:#fffaf4;
+    border:2px solid #eadcc8;
+    border-radius:14px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.info-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+}
+
+.info-label{
+    font-weight:700;
+    color:#5b4636;
+    white-space:nowrap;
+}
+
+.info-value{
+    font-weight:600;
+    color:#7a5736;
+    text-align:right;
+    flex:1;
+}
+
+/* Mobile */
+
+@media (max-width:768px){
+
+    .game-info{
+        padding:12px;
+        gap:8px;
+    }
+
+    .info-label,
+    .info-value{
+        font-size:14px;
+    }
+
+}
+
+.word-display {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 28px 34px;
+  margin: 30px 0;
+}
+
+.word-group {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+

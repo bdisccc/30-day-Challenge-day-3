@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Witch Hangman</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<main class="game-container">
+
+  <h1>🧙 Witch Hangman</h1>
+
+  <section class="game-card">
+
+    <div class="image-area">
+      <div class="hangman-scene">
+
+        <img src="assets/tree.svg" class="tree" alt="Tree">
+
+        <div class="witch-hanger">
+          <img src="assets/rope.svg" class="rope" alt="Rope">
+            
+          <div class="witch-body">
+            <img src="assets/Witch-1.svg" class="body-part head" id="head" alt="Head">
+            <img src="assets/Witch-2.svg" class="body-part body" id="bodyPart" alt="Body">
+            <img src="assets/Witch-3.svg" class="body-part left-arm" id="leftArm" alt="Left Arm">
+            <img src="assets/Witch-4.svg" class="body-part right-arm" id="rightArm" alt="Right Arm">
+            <img src="assets/Witch-5.svg" class="body-part left-leg" id="leftLeg" alt="Left Leg">
+            <img src="assets/Witch-6.svg" class="body-part right-leg" id="rightLeg" alt="Right Leg">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="game-area">
+
+      <p class="hint">
+  Hint: <span id="hintText">Loading...</span>
+</p>
+
+<div class="game-info">
+
+  <div class="info-row">
+    <span class="info-label">🏷️ Category</span>
+    <span class="info-value" id="categoryText">Loading...</span>
+  </div>
+
+  <div class="info-row">
+    <span class="info-label">🔥 Difficulty</span>
+    <span class="info-value" id="difficultyText">Loading...</span>
+  </div>
+
+  <div class="info-row">
+    <span class="info-label">📝 Words</span>
+    <span class="info-value" id="wordInfoText">Loading...</span>
+  </div>
+
+</div>
+
+<div id="wordDisplay" class="word-display"></div>
+
+      <p class="wrong-text">
+        Wrong guesses:
+        <span id="wrongCount">0</span> /
+        <span id="maxWrong">6</span>
+      </p>
+
+      <p id="message" class="message"></p>
+
+      <div id="keyboard" class="keyboard"></div>
+
+      <button id="resetBtn" class="reset-btn">New Game</button>
+
+    </div>
+
+  </section>
+
+</main>
+
+<script src="data/fantasy.js"></script>
+<script src="data/animals.js"></script>
+<script src="data/place.js"></script>
+<script src="data/food.js"></script>
+<script src="data/games.js"></script>
+<script src="data/general.js"></script>
+<script src="data/marvel.js"></script>
+<script src="data/disney.js"></script>
+<script src="data/movies.js"></script>
+<script src="data/pokemon.js"></script>
+<script src="data/science.js"></script>
+<script src="data/sports.js"></script>
+<script src="data/technology.js"></script>
+
+<script src="data/words.js"></script>
+
+<script src="script.js"></script>
+
+</body>
+</html>
