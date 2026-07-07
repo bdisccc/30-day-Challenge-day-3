@@ -13,3 +13,7 @@ Features
 📱 Fully responsive for desktop, tablet, and mobile
 🎲 Random word selection from a database of hundreds of words
 🎯 Clean, modern UI with smooth gameplay
+
+
+For Improvements:
+- Needs adjustment on the blank, 1 long word blanks goes to the next line
