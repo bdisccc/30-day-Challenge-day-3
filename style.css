@@ -1,42 +1,58 @@
 /* =========================================================
-   WITCH HANGMAN - STYLE.CSS
-   Updated responsive version
+   WITCH HANGMAN - CLEAN STYLE.CSS
+   Replace your whole style.css with this file.
 
-   Screen sizes included:
-   - Default / Large Desktop: 1401px and above
+   Breakpoints:
+   - Desktop: default
    - Laptop: 1400px and below
-   - Small Desktop / Tablet Landscape: 1200px and below
-   - Tablet Portrait: 900px and below
-   - Large Mobile: 700px and below
-   - Small Mobile: 480px and below
-
-   Notes:
-   - Edit tree size in .hangman-scene for each screen size.
-   - Edit witch size/position in .witch-hanger for each screen size.
-   - Swing animation uses rotate, not transform, so transform: scale() still works.
+   - Small desktop / tablet landscape: 1200px and below
+   - Tablet portrait: 900px and below
+   - Large mobile: 700px and below
+   - Small mobile: 480px and below
 ========================================================= */
 
 /* =========================================================
-   RESET
+   RESET + GLOBAL
 ========================================================= */
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* =========================================================
-   PAGE BACKGROUND
-========================================================= */
+:root {
+  --dark-purple: #2b124c;
+  --mid-purple: #522b5b;
+  --card-purple: rgba(255, 255, 255, 0.12);
+  --panel-purple: rgba(43, 18, 76, 0.42);
+  --border-light: rgba(255, 255, 255, 0.18);
+  --cream: #fffaf4;
+  --gold: #ffb703;
+  --gold-light: #ffd166;
+  --pink-light: #ffd6ff;
+  --green: #7cff9b;
+  --red: #ff8a8a;
+}
+
 body {
   min-height: 100vh;
   font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #2b124c, #522b5b);
-  color: #fff;
+  background: linear-gradient(135deg, var(--dark-purple), var(--mid-purple));
+  color: #ffffff;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   padding: 24px;
+}
+
+button,
+select {
+  font-family: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
 }
 
 .game-container {
@@ -53,40 +69,45 @@ h1 {
 /* =========================================================
    MAIN GAME CARD
 ========================================================= */
+
 .game-card {
-  background: rgba(255, 255, 255, 0.12);
-  border: 2px solid rgba(255, 255, 255, 0.18);
-  border-radius: 28px;
-  padding: 45px;
-  display: flex;
-  gap: 70px;
-  align-items: center;
-  justify-content: center;
   min-height: 760px;
+  padding: 45px;
+  border: 2px solid var(--border-light);
+  border-radius: 28px;
+  background: var(--card-purple);
   backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 45px;
 }
 
 .image-area {
-  flex: 1.3;
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+.game-area {
+  flex: 1.15;
+  max-width: 760px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 /* =========================================================
-   🌳 EDIT TREE DESKTOP SIZE HERE
-   This is the tree/scene size for large desktop.
+   HANGMAN SCENE / TREE / WITCH
 ========================================================= */
+
 .hangman-scene {
   position: relative;
   width: 650px;
   height: 700px;
 }
 
-/* =========================================================
-   🌳 TREE IMAGE
-   Usually edit .hangman-scene, not this.
-========================================================= */
 .tree {
   position: absolute;
   width: 100%;
@@ -97,11 +118,6 @@ h1 {
   z-index: 1;
 }
 
-/* =========================================================
-   🧙 EDIT WHOLE WITCH DESKTOP POSITION/SIZE HERE
-   left/top = move whole witch + rope
-   transform: scale() = make witch larger/smaller
-========================================================= */
 .witch-hanger {
   position: absolute;
   left: 145px;
@@ -113,9 +129,6 @@ h1 {
   animation: swingHanger 2.7s ease-in-out infinite;
 }
 
-/* =========================================================
-   🪢 EDIT ROPE DESKTOP HERE
-========================================================= */
 .rope {
   position: absolute;
   width: 58px;
@@ -124,10 +137,6 @@ h1 {
   z-index: 2;
 }
 
-/* =========================================================
-   🧍 EDIT WHOLE BODY GROUP DESKTOP HERE
-   This moves all body parts together, but not the rope.
-========================================================= */
 .witch-body {
   position: absolute;
   left: 0;
@@ -143,10 +152,6 @@ h1 {
   pointer-events: none;
 }
 
-/* =========================================================
-   🧙 EDIT BODY PART POSITIONS HERE
-   These are desktop body-part positions.
-========================================================= */
 .head {
   width: 148px;
   left: 61px;
@@ -189,11 +194,6 @@ h1 {
   z-index: 3;
 }
 
-/* =========================================================
-   🎐 SWING ANIMATION
-   IMPORTANT: use rotate, not transform: rotate.
-   This lets mobile/tablet transform: scale() still work.
-========================================================= */
 @keyframes swingHanger {
   0% {
     rotate: 2.5deg;
@@ -208,9 +208,6 @@ h1 {
   }
 }
 
-/* =========================================================
-   💥 BODY PART FALL ANIMATION
-========================================================= */
 .fall-away {
   animation: fallAway 0.8s ease forwards;
 }
@@ -228,63 +225,292 @@ h1 {
 }
 
 /* =========================================================
-   GAME UI RIGHT SIDE
+   HINT + CATEGORY PANEL
 ========================================================= */
-.game-area {
-  flex: 0.9;
+
+.hint-area {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 12px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-light);
+}
+
+.hint-content {
+  width: 100%;
+}
+
+.options-toggle {
+  display: none;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 11px 14px;
+  border: none;
+  border-radius: 14px;
+  background: var(--gold);
+  color: var(--dark-purple);
+  font-size: 14px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.options-toggle:hover {
+  background: var(--gold-light);
+}
+
+.game-controls {
+  width: 100%;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.category-label {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.category-select {
+  width: min(100%, 420px);
+  height: 46px;
+  padding: 0 16px;
+  border: 2px solid rgba(255, 255, 255, 0.45);
+  border-radius: 16px;
+  outline: none;
+  background: var(--cream);
+  color: var(--dark-purple);
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
+}
+
+.category-select:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 4px rgba(255, 183, 3, 0.25);
+}
+
+.hint-card {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: var(--panel-purple);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  overflow: hidden;
+}
+
+.hint-inline {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) 28px;
+  align-items: center;
+  gap: 12px;
+}
+
+.hint-card .hint {
+  min-width: 0;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 1.35;
+  text-align: left;
+}
+
+.hint-icon {
+  width: 28px;
+  height: 28px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background: var(--gold);
+  font-size: 15px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.22);
+}
+
+.hint-copy {
+  min-width: 0;
+  max-width: 100%;
+  display: block;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+.hint-help {
+  display: none;
+}
+
+.hint-btn.icon-hint-btn,
+.hint-btn.icon-hint-btn.primary-hint-btn {
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  padding: 0;
+  margin: 0;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: #ffffff;
+  font-size: 28px;
+  font-weight: 900;
+  line-height: 1;
+  cursor: pointer;
+  transition: 0.2s ease;
+  transform: translateY(-1px);
+}
+
+.hint-btn.icon-hint-btn:hover:not(:disabled),
+.hint-btn.icon-hint-btn.primary-hint-btn:hover:not(:disabled) {
+  background: transparent;
+  color: var(--gold);
+  transform: translateY(-1px) scale(1.12);
+}
+
+.hint-btn.icon-hint-btn:disabled,
+.hint-btn.icon-hint-btn.primary-hint-btn:disabled {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.25);
+  opacity: 1;
+  cursor: not-allowed;
+  transform: translateY(-1px);
+}
+
+/* =========================================================
+   GAME INFO
+========================================================= */
+
+.game-info {
+  margin: 12px 0;
+  padding: 14px 18px;
+  border: 2px solid #eadcc8;
+  border-radius: 14px;
+  background: var(--cream);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  gap: 10px;
 }
 
-.hint {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 35px;
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
 }
+
+.info-label {
+  color: #5b4636;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.info-value {
+  flex: 1;
+  color: #7a5736;
+  font-weight: 700;
+  text-align: right;
+}
+
+/* =========================================================
+   WORD DISPLAY
+========================================================= */
 
 .word-display {
+  width: 100%;
+  margin: 26px 0;
   display: flex;
-  justify-content: center;
-  gap: 14px;
-  margin: 34px 0;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px 26px;
+}
+
+.word-group {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: 6px;
+  white-space: nowrap;
 }
 
 .letter-box {
-  width: 48px;
-  height: 58px;
-  border-bottom: 5px solid #fff;
-  font-size: 38px;
+  width: 34px;
+  height: 48px;
+  border-bottom: 4px solid #ffffff;
+  color: #ffffff;
+  font-size: 30px;
   font-weight: bold;
+  line-height: 42px;
+  text-align: center;
   text-transform: uppercase;
+  flex: 0 0 auto;
 }
 
 .space-box {
   width: 24px;
-  height: 58px;
+  height: 48px;
 }
 
+/* =========================================================
+   STATUS / FUN FACT
+========================================================= */
+
 .wrong-text {
-  margin-bottom: 30px;
+  margin-bottom: 22px;
   font-size: 22px;
   font-weight: bold;
 }
 
 .message {
   min-height: 32px;
-  margin-bottom: 22px;
-  font-weight: bold;
+  margin-bottom: 14px;
   font-size: 26px;
+  font-weight: bold;
 }
 
 .message.win {
-  color: #7cff9b;
+  color: var(--green);
 }
 
 .message.lose {
-  color: #ff8a8a;
+  color: var(--red);
 }
+
+.fun-fact {
+  display: none;
+  max-width: 680px;
+  margin: 0 auto 18px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: var(--cream);
+  color: #5b4636;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.fun-fact.show {
+  display: block;
+}
+
+/* =========================================================
+   KEYBOARD + NEW GAME BUTTON
+========================================================= */
 
 .keyboard {
   display: grid;
@@ -298,43 +524,43 @@ h1 {
   border: none;
   border-radius: 14px;
   background: #ffffff;
-  color: #2b124c;
+  color: var(--dark-purple);
   font-size: 18px;
   font-weight: bold;
+  text-transform: uppercase;
   cursor: pointer;
   transition: 0.2s ease;
-  text-transform: uppercase;
 }
 
-.key-btn:hover {
-  background: #ffd6ff;
+.key-btn:hover:not(:disabled) {
+  background: var(--pink-light);
   transform: translateY(-2px);
 }
 
 .key-btn:disabled {
   background: #8d8d8d;
-  color: #ddd;
+  color: #dddddd;
   cursor: not-allowed;
   transform: none;
 }
 
 .key-btn.correct {
-  background: #7cff9b;
+  background: var(--green);
   color: #1c3d24;
 }
 
 .key-btn.wrong {
-  background: #ff8a8a;
+  background: var(--red);
   color: #4a1111;
 }
 
 .reset-btn {
   align-self: center;
+  padding: 16px 36px;
   border: none;
   border-radius: 16px;
-  padding: 16px 36px;
-  background: #ffb703;
-  color: #2b124c;
+  background: var(--gold);
+  color: var(--dark-purple);
   font-size: 20px;
   font-weight: bold;
   cursor: pointer;
@@ -342,13 +568,13 @@ h1 {
 }
 
 .reset-btn:hover {
-  background: #ffd166;
+  background: var(--gold-light);
 }
 
 /* =========================================================
-   💻 LAPTOP SETTINGS
-   Screens 1400px and below
+   RESPONSIVE - LAPTOP
 ========================================================= */
+
 @media (max-width: 1400px) {
   .game-container {
     width: min(96vw, 1400px);
@@ -360,18 +586,16 @@ h1 {
   }
 
   .game-card {
-    gap: 50px;
-    padding: 38px;
     min-height: 680px;
+    padding: 38px;
+    gap: 50px;
   }
 
-  /* 🌳 edit laptop tree size */
   .hangman-scene {
     width: 560px;
     height: 610px;
   }
 
-  /* 🧙 edit laptop witch size/position */
   .witch-hanger {
     left: 122px;
     top: 48px;
@@ -381,35 +605,37 @@ h1 {
 }
 
 /* =========================================================
-   💻 TABLET LANDSCAPE / SMALL DESKTOP SETTINGS
-   Screens 1200px and below
+   RESPONSIVE - SMALL DESKTOP / TABLET LANDSCAPE
 ========================================================= */
+
 @media (max-width: 1200px) {
   h1 {
     font-size: 46px;
   }
 
   .game-card {
-    gap: 40px;
     min-height: 620px;
+    gap: 40px;
   }
 
-  /* 🌳 edit 1200px tree size */
   .hangman-scene {
     width: 480px;
     height: 520px;
   }
 
-  /* 🧙 edit 1200px witch size/position */
   .witch-hanger {
     left: 90px;
     top: 40px;
-    transform: scale(1.0);
+    transform: scale(1);
     transform-origin: top center;
   }
 
-  .hint {
-    font-size: 20px;
+  .category-select {
+    width: min(100%, 360px);
+  }
+
+  .hint-card .hint {
+    font-size: 15px;
   }
 
   .key-btn {
@@ -419,9 +645,9 @@ h1 {
 }
 
 /* =========================================================
-   📱 TABLET PORTRAIT SETTINGS
-   Screens 900px and below
+   RESPONSIVE - TABLET PORTRAIT
 ========================================================= */
+
 @media (max-width: 900px) {
   body {
     padding: 16px;
@@ -437,11 +663,11 @@ h1 {
   }
 
   .game-card {
-    flex-direction: column;
+    min-height: auto;
     padding: 18px;
     gap: 18px;
-    min-height: auto;
     border-radius: 22px;
+    flex-direction: column;
   }
 
   .image-area {
@@ -449,50 +675,57 @@ h1 {
     flex: unset;
   }
 
-  /* 🌳 edit 900px tree size */
+  .game-area {
+    width: 100%;
+    max-width: 100%;
+  }
+
   .hangman-scene {
     width: 340px;
     height: 310px;
     overflow: hidden;
   }
 
-  /* 🧙 edit 900px witch size/position */
   .witch-hanger {
     left: 10px;
     top: 25px;
-    transform: scale(0.70);
+    transform: scale(0.7);
     transform-origin: top center;
   }
 
-  .game-area {
-    width: 100%;
+  .hint-area {
+    padding: 12px;
   }
 
-  .hint {
-    font-size: 17px;
-    margin-bottom: 14px;
+  .category-select {
+    width: min(100%, 420px);
   }
 
   .word-display {
-    gap: 9px;
-    margin: 18px 0;
+    margin: 20px 0;
+    gap: 16px 20px;
+  }
+
+  .word-group {
+    gap: 4px;
   }
 
   .letter-box {
-    width: 32px;
+    width: 26px;
     height: 38px;
-    font-size: 25px;
-    border-bottom: 4px solid #fff;
+    border-bottom-width: 3px;
+    font-size: 23px;
+    line-height: 33px;
   }
 
   .wrong-text {
-    font-size: 16px;
     margin-bottom: 18px;
+    font-size: 16px;
   }
 
   .message {
-    font-size: 18px;
     margin-bottom: 14px;
+    font-size: 18px;
   }
 
   .keyboard {
@@ -503,20 +736,20 @@ h1 {
 
   .key-btn {
     padding: 10px;
-    font-size: 14px;
     border-radius: 12px;
+    font-size: 14px;
   }
 
   .reset-btn {
-    font-size: 16px;
     padding: 12px 24px;
+    font-size: 16px;
   }
 }
 
 /* =========================================================
-   📱 LARGE MOBILE SETTINGS
-   Screens 700px and below
+   RESPONSIVE - LARGE MOBILE
 ========================================================= */
+
 @media (max-width: 700px) {
   body {
     padding: 12px;
@@ -532,19 +765,80 @@ h1 {
     gap: 14px;
   }
 
-  /* 🌳 edit 700px tree size */
   .hangman-scene {
     width: 280px;
     height: 245px;
     overflow: hidden;
   }
 
-  /* 🧙 edit 700px witch size/position */
   .witch-hanger {
-    left: .50px;
+    left: 0.5px;
     top: 2px;
     transform: scale(0.55);
     transform-origin: top center;
+  }
+
+  .options-toggle {
+    display: block;
+  }
+
+  .hint-area.is-hidden .hint-content {
+    display: none;
+  }
+
+  .hint-area {
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  .game-controls {
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .category-select {
+    width: 100%;
+    height: 40px;
+    font-size: 13px;
+  }
+
+  .hint-card {
+    padding: 9px;
+  }
+
+  .hint-inline {
+    grid-template-columns: 24px minmax(0, 1fr) 24px;
+    gap: 8px;
+  }
+
+  .hint-card .hint {
+    font-size: 13px;
+    gap: 6px;
+  }
+
+  .hint-icon {
+    width: 24px;
+    height: 24px;
+    font-size: 13px;
+  }
+
+  .hint-btn.icon-hint-btn,
+  .hint-btn.icon-hint-btn.primary-hint-btn {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    font-size: 24px;
+  }
+
+  .game-info {
+    margin: 10px 0;
+    padding: 10px;
+    gap: 8px;
+  }
+
+  .info-label,
+  .info-value {
+    font-size: 14px;
   }
 
   .keyboard {
@@ -556,16 +850,12 @@ h1 {
     padding: 10px;
     font-size: 14px;
   }
-
-  .hint {
-    font-size: 16px;
-  }
 }
 
 /* =========================================================
-   📱 SMALL MOBILE SETTINGS
-   Screens 480px and below
+   RESPONSIVE - SMALL MOBILE
 ========================================================= */
+
 @media (max-width: 480px) {
   body {
     padding: 10px;
@@ -581,23 +871,62 @@ h1 {
     gap: 12px;
   }
 
-  /* 🌳 edit 480px tree size */
   .hangman-scene {
     width: 220px;
     height: 210px;
     overflow: hidden;
   }
 
-  /* 🧙 edit 480px witch size/position */
   .witch-hanger {
     left: -49px;
     top: 4px;
-    transform: scale(0.50);
+    transform: scale(0.5);
     transform-origin: top center;
   }
 
-  .hint {
-    font-size: 15px;
+  .word-display {
+    margin: 16px 0;
+    gap: 14px 16px;
+  }
+
+  .word-group {
+    gap: 2px;
+  }
+
+  .letter-box {
+    width: 18px;
+    height: 30px;
+    border-bottom-width: 3px;
+    font-size: 17px;
+    line-height: 26px;
+  }
+
+  .space-box {
+    width: 14px;
+    height: 30px;
+  }
+
+  .hint-inline {
+    grid-template-columns: 22px minmax(0, 1fr) 22px;
+    gap: 7px;
+  }
+
+  .hint-card .hint {
+    font-size: 12px;
+  }
+
+  .hint-icon {
+    width: 22px;
+    height: 22px;
+    font-size: 12px;
+  }
+
+  .hint-btn.icon-hint-btn,
+  .hint-btn.icon-hint-btn.primary-hint-btn {
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    font-size: 22px;
   }
 
   .keyboard {
@@ -609,84 +938,4 @@ h1 {
     padding: 9px;
     font-size: 13px;
   }
-
-  .letter-box {
-    width: 26px;
-    height: 34px;
-    font-size: 22px;
-  }
-  .space-box {
-  width: 14px;
-  height: 34px;
 }
-
-}
-
-/* ===========================
-   GAME INFO
-=========================== */
-
-.game-info{
-    margin:18px 0;
-    padding:14px 18px;
-    background:#fffaf4;
-    border:2px solid #eadcc8;
-    border-radius:14px;
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-}
-
-.info-row{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:15px;
-}
-
-.info-label{
-    font-weight:700;
-    color:#5b4636;
-    white-space:nowrap;
-}
-
-.info-value{
-    font-weight:600;
-    color:#7a5736;
-    text-align:right;
-    flex:1;
-}
-
-/* Mobile */
-
-@media (max-width:768px){
-
-    .game-info{
-        padding:12px;
-        gap:8px;
-    }
-
-    .info-label,
-    .info-value{
-        font-size:14px;
-    }
-
-}
-
-.word-display {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 28px 34px;
-  margin: 30px 0;
-}
-
-.word-group {
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: center;
-  gap: 10px;
-  white-space: nowrap;
-}
-
